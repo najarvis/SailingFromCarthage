@@ -1,0 +1,14 @@
+[gd_resource type="ShaderMaterial" load_steps=4 format=2]
+
+[ext_resource path="res://Assets/Shaders/Marching.shader" type="Shader" id=1]
+[ext_resource path="res://Assets/Tiles/MinecraftGrass.png" type="Texture" id=2]
+[ext_resource path="res://Assets/Tiles/Water.png" type="Texture" id=3]
+
+[resource]
+
+render_priority = 0
+shader = ExtResource( 1 )
+shader_param/primary_tex = ExtResource( 2 )
+shader_param/secondary_tex = ExtResource( 3 )
+_sections_unfolded = [ "shader_param" ]
+
