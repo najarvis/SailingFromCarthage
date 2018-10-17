@@ -1,4 +1,4 @@
-extends Node2D
+extends KinematicBody2D
 
 class Ship:
 	# A 'ship' entity is basically any entity that moves only in the direction it is

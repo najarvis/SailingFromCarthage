@@ -1,5 +1,4 @@
-extends Node2D
-
+extends KinematicBody2D
 
 var t
 var max_time

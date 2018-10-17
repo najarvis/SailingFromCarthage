@@ -31,16 +31,18 @@ func to_coord(pos):
 	return [floor(pos.x / cell_size.x), floor(pos.y / cell_size.y)]
 
 func buy_resource(resource):
-	var p = selected_city.get_price(resource)
+	var p = selected_city.get_price(resource, "buy")
 	if p <= $Player.coin:
 		$Player.buy_resource(resource, p)
+		selected_city.adjust_price(resource, 1) # Demand up, price up
 
 	$CanvasLayer/CityTradeScreen.update_text(selected_city)
 	
 func sell_resource(resource):
-	var p = selected_city.get_price(resource)
+	var p = selected_city.get_price(resource, "sell")
 	if $Player.resources.has(resource):
 		if $Player.resources[resource] > 0:
 			$Player.sell_resource(resource, p)
+			selected_city.adjust_price(resource, -1) # Supply up, price down
 
 	$CanvasLayer/CityTradeScreen.update_text(selected_city)

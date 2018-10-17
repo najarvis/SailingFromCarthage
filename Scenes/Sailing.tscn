@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=2]
+[gd_scene load_steps=27 format=2]
 
 [ext_resource path="res://Assets/Scripts/World.gd" type="Script" id=1]
 [ext_resource path="res://Assets/Tiles/MarchingTileset.res" type="TileSet" id=2]
@@ -16,6 +16,7 @@
 [ext_resource path="res://Assets/UI/TOOLS.png" type="Texture" id=14]
 [ext_resource path="res://Assets/UI/Salt.png" type="Texture" id=15]
 [ext_resource path="res://Assets/Entities/BaseMonster.tscn" type="PackedScene" id=16]
+[ext_resource path="res://Assets/Music/SailingJingle.wav" type="AudioStream" id=17]
 
 [sub_resource type="CircleShape2D" id=1]
 
@@ -109,14 +110,12 @@ echo = false
 
 shortcut = SubResource( 8 )
 
-[node name="World" type="Node" index="0"]
-
+[node name="World" type="Node"]
 pause_mode = 2
 script = ExtResource( 1 )
 _sections_unfolded = [ "Pause" ]
 
-[node name="TileMap" type="TileMap" parent="." index="0"]
-
+[node name="TileMap" type="TileMap" parent="."]
 pause_mode = 1
 position = Vector2( 1, -1 )
 mode = 0
@@ -140,8 +139,7 @@ script = ExtResource( 3 )
 _sections_unfolded = [ "Cell", "Pause", "Visibility" ]
 map_w = 128
 
-[node name="Sprite" type="Sprite" parent="." index="1"]
-
+[node name="OrbisMap" type="Sprite" parent="."]
 pause_mode = 1
 visible = false
 modulate = Color( 1, 1, 1, 0.403294 )
@@ -150,8 +148,7 @@ scale = Vector2( 3, 3 )
 texture = ExtResource( 4 )
 _sections_unfolded = [ "Pause", "Transform", "Visibility" ]
 
-[node name="Player" type="KinematicBody2D" parent="." index="2"]
-
+[node name="Player" type="KinematicBody2D" parent="."]
 pause_mode = 1
 position = Vector2( 887.58, 987.736 )
 scale = Vector2( 2, 2 )
@@ -159,23 +156,21 @@ input_pickable = false
 collision_layer = 1
 collision_mask = 1
 collision/safe_margin = 0.005
+motion/sync_to_physics = false
 script = ExtResource( 5 )
 _sections_unfolded = [ "Pause", "collision" ]
-initial_pos = Vector2( 32, 32 )
+initial_pos = Vector2( 0, 0 )
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Player" index="0"]
-
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
 position = Vector2( 1, -2.5 )
 shape = SubResource( 1 )
 
-[node name="Player" type="Sprite" parent="Player" index="1"]
-
+[node name="Player" type="Sprite" parent="Player"]
 material = SubResource( 2 )
 texture = ExtResource( 7 )
 _sections_unfolded = [ "Material", "Transform" ]
 
-[node name="Camera2D" type="Camera2D" parent="Player/Player" index="0"]
-
+[node name="Camera2D" type="Camera2D" parent="Player/Player"]
 scale = Vector2( 0.5, 0.5 )
 anchor_mode = 1
 rotating = false
@@ -201,8 +196,7 @@ editor_draw_limits = false
 editor_draw_drag_margin = false
 _sections_unfolded = [ "Drag Margin", "Smoothing", "Transform" ]
 
-[node name="Particles2D" type="Particles2D" parent="Player/Player" index="1"]
-
+[node name="Particles2D" type="Particles2D" parent="Player/Player"]
 show_behind_parent = true
 material = SubResource( 3 )
 emitting = true
@@ -225,8 +219,7 @@ h_frames = 1
 v_frames = 1
 _sections_unfolded = [ "Drawing", "Material", "Process Material", "Textures", "Time", "Transform" ]
 
-[node name="CollisionDetection" type="Area2D" parent="Player" index="2"]
-
+[node name="CollisionDetection" type="Area2D" parent="Player"]
 scale = Vector2( 0.5, 0.5 )
 input_pickable = true
 gravity_vec = Vector2( 0, 1 )
@@ -237,20 +230,17 @@ audio_bus_override = false
 audio_bus_name = "Master"
 _sections_unfolded = [ "Transform" ]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Player/CollisionDetection" index="0"]
-
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player/CollisionDetection"]
 shape = SubResource( 7 )
 
-[node name="CanvasLayer" type="CanvasLayer" parent="." index="3"]
-
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
 layer = 1
 offset = Vector2( 0, 0 )
 rotation = 0.0
 scale = Vector2( 1, 1 )
 transform = Transform2D( 1, 0, 0, 1, 0, 0 )
 
-[node name="CityTradeScreen" type="Panel" parent="CanvasLayer" index="0"]
-
+[node name="CityTradeScreen" type="Panel" parent="CanvasLayer"]
 visible = false
 anchor_left = 0.0
 anchor_top = 0.0
@@ -269,8 +259,7 @@ size_flags_vertical = 1
 script = ExtResource( 8 )
 _sections_unfolded = [ "Material" ]
 
-[node name="Button" type="Button" parent="CanvasLayer/CityTradeScreen" index="0"]
-
+[node name="Button" type="Button" parent="CanvasLayer/CityTradeScreen"]
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
@@ -296,8 +285,7 @@ flat = false
 align = 1
 _sections_unfolded = [ "Margin" ]
 
-[node name="PlayerCoin" type="RichTextLabel" parent="CanvasLayer/CityTradeScreen" index="1"]
-
+[node name="PlayerCoin" type="RichTextLabel" parent="CanvasLayer/CityTradeScreen"]
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
@@ -326,13 +314,12 @@ selection_enabled = false
 override_selected_font_color = false
 _sections_unfolded = [ "BBCode", "Rect" ]
 
-[node name="PlayerCoinIcon" type="Sprite" parent="CanvasLayer/CityTradeScreen" index="2"]
-
+[node name="PlayerCoinIcon" type="Sprite" parent="CanvasLayer/CityTradeScreen"]
 position = Vector2( 75.7358, 38.8128 )
 texture = ExtResource( 10 )
 
-[node name="FoodControl" type="Control" parent="CanvasLayer/CityTradeScreen" index="3"]
-
+[node name="FoodControl" type="Control" parent="CanvasLayer/CityTradeScreen"]
+editor/display_folded = true
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
@@ -346,8 +333,7 @@ mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
 
-[node name="BuyFoodButton" type="Button" parent="CanvasLayer/CityTradeScreen/FoodControl" index="0"]
-
+[node name="BuyFoodButton" type="Button" parent="CanvasLayer/CityTradeScreen/FoodControl"]
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
@@ -372,8 +358,7 @@ flat = false
 align = 1
 _sections_unfolded = [ "Hint", "Rect" ]
 
-[node name="SellFoodButton" type="Button" parent="CanvasLayer/CityTradeScreen/FoodControl" index="1"]
-
+[node name="SellFoodButton" type="Button" parent="CanvasLayer/CityTradeScreen/FoodControl"]
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
@@ -398,8 +383,7 @@ flat = false
 align = 1
 _sections_unfolded = [ "Hint", "Rect" ]
 
-[node name="BuyFood" type="TextureButton" parent="CanvasLayer/CityTradeScreen/FoodControl" index="2"]
-
+[node name="BuyFood" type="TextureButton" parent="CanvasLayer/CityTradeScreen/FoodControl"]
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
@@ -423,8 +407,7 @@ texture_normal = ExtResource( 11 )
 expand = true
 _sections_unfolded = [ "Hint", "Rect", "Textures" ]
 
-[node name="FoodCost" type="RichTextLabel" parent="CanvasLayer/CityTradeScreen/FoodControl" index="3"]
-
+[node name="FoodCost" type="RichTextLabel" parent="CanvasLayer/CityTradeScreen/FoodControl"]
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
@@ -452,8 +435,7 @@ selection_enabled = false
 override_selected_font_color = false
 _sections_unfolded = [ "BBCode", "Rect" ]
 
-[node name="FoodQuantity" type="RichTextLabel" parent="CanvasLayer/CityTradeScreen/FoodControl" index="4"]
-
+[node name="FoodQuantity" type="RichTextLabel" parent="CanvasLayer/CityTradeScreen/FoodControl"]
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
@@ -481,13 +463,11 @@ selection_enabled = false
 override_selected_font_color = false
 _sections_unfolded = [ "BBCode", "Rect" ]
 
-[node name="FoodCoinIcon" type="Sprite" parent="CanvasLayer/CityTradeScreen/FoodControl" index="5"]
-
+[node name="FoodCoinIcon" type="Sprite" parent="CanvasLayer/CityTradeScreen/FoodControl"]
 position = Vector2( 92.1674, 177.248 )
 texture = ExtResource( 10 )
 
-[node name="WoodControl" type="Control" parent="CanvasLayer/CityTradeScreen" index="4"]
-
+[node name="WoodControl" type="Control" parent="CanvasLayer/CityTradeScreen"]
 editor/display_folded = true
 anchor_left = 0.0
 anchor_top = 0.0
@@ -504,8 +484,7 @@ mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
 
-[node name="BuyWoodButton" type="Button" parent="CanvasLayer/CityTradeScreen/WoodControl" index="0"]
-
+[node name="BuyWoodButton" type="Button" parent="CanvasLayer/CityTradeScreen/WoodControl"]
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
@@ -530,8 +509,7 @@ flat = false
 align = 1
 _sections_unfolded = [ "Hint", "Rect" ]
 
-[node name="SellWoodButton" type="Button" parent="CanvasLayer/CityTradeScreen/WoodControl" index="1"]
-
+[node name="SellWoodButton" type="Button" parent="CanvasLayer/CityTradeScreen/WoodControl"]
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
@@ -556,8 +534,7 @@ flat = false
 align = 1
 _sections_unfolded = [ "Hint", "Rect" ]
 
-[node name="BuyWood" type="TextureButton" parent="CanvasLayer/CityTradeScreen/WoodControl" index="2"]
-
+[node name="BuyWood" type="TextureButton" parent="CanvasLayer/CityTradeScreen/WoodControl"]
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
@@ -581,8 +558,7 @@ texture_normal = ExtResource( 12 )
 expand = true
 _sections_unfolded = [ "Hint", "Rect", "Textures" ]
 
-[node name="WoodCost" type="RichTextLabel" parent="CanvasLayer/CityTradeScreen/WoodControl" index="3"]
-
+[node name="WoodCost" type="RichTextLabel" parent="CanvasLayer/CityTradeScreen/WoodControl"]
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
@@ -610,8 +586,7 @@ selection_enabled = false
 override_selected_font_color = false
 _sections_unfolded = [ "BBCode", "Rect" ]
 
-[node name="WoodQuantity" type="RichTextLabel" parent="CanvasLayer/CityTradeScreen/WoodControl" index="4"]
-
+[node name="WoodQuantity" type="RichTextLabel" parent="CanvasLayer/CityTradeScreen/WoodControl"]
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
@@ -639,13 +614,11 @@ selection_enabled = false
 override_selected_font_color = false
 _sections_unfolded = [ "BBCode", "Rect" ]
 
-[node name="WoodCoinIcon" type="Sprite" parent="CanvasLayer/CityTradeScreen/WoodControl" index="5"]
-
+[node name="WoodCoinIcon" type="Sprite" parent="CanvasLayer/CityTradeScreen/WoodControl"]
 position = Vector2( 92.1674, 177.248 )
 texture = ExtResource( 10 )
 
-[node name="MetalControl" type="Control" parent="CanvasLayer/CityTradeScreen" index="5"]
-
+[node name="MetalControl" type="Control" parent="CanvasLayer/CityTradeScreen"]
 editor/display_folded = true
 anchor_left = 0.0
 anchor_top = 0.0
@@ -662,8 +635,7 @@ mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
 
-[node name="BuyMetalButton" type="Button" parent="CanvasLayer/CityTradeScreen/MetalControl" index="0"]
-
+[node name="BuyMetalButton" type="Button" parent="CanvasLayer/CityTradeScreen/MetalControl"]
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
@@ -688,8 +660,7 @@ flat = false
 align = 1
 _sections_unfolded = [ "Hint", "Rect" ]
 
-[node name="SellMetalButton" type="Button" parent="CanvasLayer/CityTradeScreen/MetalControl" index="1"]
-
+[node name="SellMetalButton" type="Button" parent="CanvasLayer/CityTradeScreen/MetalControl"]
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
@@ -714,8 +685,7 @@ flat = false
 align = 1
 _sections_unfolded = [ "Hint", "Rect" ]
 
-[node name="BuyMetal" type="TextureButton" parent="CanvasLayer/CityTradeScreen/MetalControl" index="2"]
-
+[node name="BuyMetal" type="TextureButton" parent="CanvasLayer/CityTradeScreen/MetalControl"]
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
@@ -739,8 +709,7 @@ texture_normal = ExtResource( 13 )
 expand = true
 _sections_unfolded = [ "Hint", "Rect", "Textures" ]
 
-[node name="MetalCost" type="RichTextLabel" parent="CanvasLayer/CityTradeScreen/MetalControl" index="3"]
-
+[node name="MetalCost" type="RichTextLabel" parent="CanvasLayer/CityTradeScreen/MetalControl"]
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
@@ -768,8 +737,7 @@ selection_enabled = false
 override_selected_font_color = false
 _sections_unfolded = [ "BBCode", "Rect" ]
 
-[node name="MetalQuantity" type="RichTextLabel" parent="CanvasLayer/CityTradeScreen/MetalControl" index="4"]
-
+[node name="MetalQuantity" type="RichTextLabel" parent="CanvasLayer/CityTradeScreen/MetalControl"]
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
@@ -797,13 +765,11 @@ selection_enabled = false
 override_selected_font_color = false
 _sections_unfolded = [ "BBCode", "Rect" ]
 
-[node name="MetalCoinIcon" type="Sprite" parent="CanvasLayer/CityTradeScreen/MetalControl" index="5"]
-
+[node name="MetalCoinIcon" type="Sprite" parent="CanvasLayer/CityTradeScreen/MetalControl"]
 position = Vector2( 92.1674, 177.248 )
 texture = ExtResource( 10 )
 
-[node name="ToolsControl" type="Control" parent="CanvasLayer/CityTradeScreen" index="6"]
-
+[node name="ToolsControl" type="Control" parent="CanvasLayer/CityTradeScreen"]
 editor/display_folded = true
 anchor_left = 0.0
 anchor_top = 0.0
@@ -820,8 +786,7 @@ mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
 
-[node name="BuyToolsButton" type="Button" parent="CanvasLayer/CityTradeScreen/ToolsControl" index="0"]
-
+[node name="BuyToolsButton" type="Button" parent="CanvasLayer/CityTradeScreen/ToolsControl"]
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
@@ -846,8 +811,7 @@ flat = false
 align = 1
 _sections_unfolded = [ "Hint", "Rect" ]
 
-[node name="SellToolsButton" type="Button" parent="CanvasLayer/CityTradeScreen/ToolsControl" index="1"]
-
+[node name="SellToolsButton" type="Button" parent="CanvasLayer/CityTradeScreen/ToolsControl"]
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
@@ -872,8 +836,7 @@ flat = false
 align = 1
 _sections_unfolded = [ "Hint", "Rect" ]
 
-[node name="BuyTools" type="TextureButton" parent="CanvasLayer/CityTradeScreen/ToolsControl" index="2"]
-
+[node name="BuyTools" type="TextureButton" parent="CanvasLayer/CityTradeScreen/ToolsControl"]
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
@@ -897,8 +860,7 @@ texture_normal = ExtResource( 14 )
 expand = true
 _sections_unfolded = [ "Hint", "Rect", "Textures" ]
 
-[node name="ToolsCost" type="RichTextLabel" parent="CanvasLayer/CityTradeScreen/ToolsControl" index="3"]
-
+[node name="ToolsCost" type="RichTextLabel" parent="CanvasLayer/CityTradeScreen/ToolsControl"]
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
@@ -926,8 +888,7 @@ selection_enabled = false
 override_selected_font_color = false
 _sections_unfolded = [ "BBCode", "Rect" ]
 
-[node name="ToolsQuantity" type="RichTextLabel" parent="CanvasLayer/CityTradeScreen/ToolsControl" index="4"]
-
+[node name="ToolsQuantity" type="RichTextLabel" parent="CanvasLayer/CityTradeScreen/ToolsControl"]
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
@@ -955,13 +916,11 @@ selection_enabled = false
 override_selected_font_color = false
 _sections_unfolded = [ "BBCode", "Rect" ]
 
-[node name="ToolsCoinIcon" type="Sprite" parent="CanvasLayer/CityTradeScreen/ToolsControl" index="5"]
-
+[node name="ToolsCoinIcon" type="Sprite" parent="CanvasLayer/CityTradeScreen/ToolsControl"]
 position = Vector2( 92.1674, 177.248 )
 texture = ExtResource( 10 )
 
-[node name="SaltControl" type="Control" parent="CanvasLayer/CityTradeScreen" index="7"]
-
+[node name="SaltControl" type="Control" parent="CanvasLayer/CityTradeScreen"]
 editor/display_folded = true
 anchor_left = 0.0
 anchor_top = 0.0
@@ -978,8 +937,7 @@ mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
 
-[node name="BuySaltButton" type="Button" parent="CanvasLayer/CityTradeScreen/SaltControl" index="0"]
-
+[node name="BuySaltButton" type="Button" parent="CanvasLayer/CityTradeScreen/SaltControl"]
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
@@ -1004,8 +962,7 @@ flat = false
 align = 1
 _sections_unfolded = [ "Hint", "Rect" ]
 
-[node name="SellSaltButton" type="Button" parent="CanvasLayer/CityTradeScreen/SaltControl" index="1"]
-
+[node name="SellSaltButton" type="Button" parent="CanvasLayer/CityTradeScreen/SaltControl"]
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
@@ -1030,8 +987,7 @@ flat = false
 align = 1
 _sections_unfolded = [ "Hint", "Rect" ]
 
-[node name="BuySalt" type="TextureButton" parent="CanvasLayer/CityTradeScreen/SaltControl" index="2"]
-
+[node name="BuySalt" type="TextureButton" parent="CanvasLayer/CityTradeScreen/SaltControl"]
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
@@ -1055,8 +1011,7 @@ texture_normal = ExtResource( 15 )
 expand = true
 _sections_unfolded = [ "Hint", "Rect", "Textures" ]
 
-[node name="SaltCost" type="RichTextLabel" parent="CanvasLayer/CityTradeScreen/SaltControl" index="3"]
-
+[node name="SaltCost" type="RichTextLabel" parent="CanvasLayer/CityTradeScreen/SaltControl"]
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
@@ -1084,8 +1039,7 @@ selection_enabled = false
 override_selected_font_color = false
 _sections_unfolded = [ "BBCode", "Rect" ]
 
-[node name="SaltQuantity" type="RichTextLabel" parent="CanvasLayer/CityTradeScreen/SaltControl" index="4"]
-
+[node name="SaltQuantity" type="RichTextLabel" parent="CanvasLayer/CityTradeScreen/SaltControl"]
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
@@ -1113,43 +1067,39 @@ selection_enabled = false
 override_selected_font_color = false
 _sections_unfolded = [ "BBCode", "Rect" ]
 
-[node name="SaltCoinIcon" type="Sprite" parent="CanvasLayer/CityTradeScreen/SaltControl" index="5"]
-
+[node name="SaltCoinIcon" type="Sprite" parent="CanvasLayer/CityTradeScreen/SaltControl"]
 position = Vector2( 92.1674, 177.248 )
 texture = ExtResource( 10 )
 
-[node name="Monster" parent="." index="4" instance=ExtResource( 16 )]
-
+[node name="Monster" parent="." instance=ExtResource( 16 )]
 position = Vector2( 330.461, 660.063 )
+motion/sync_to_physics = false
 
-[node name="Monster2" parent="." index="5" instance=ExtResource( 16 )]
-
+[node name="Monster2" parent="." instance=ExtResource( 16 )]
 position = Vector2( 999.52, 790.391 )
+motion/sync_to_physics = false
 
-[node name="Monster3" parent="." index="6" instance=ExtResource( 16 )]
-
+[node name="Monster3" parent="." instance=ExtResource( 16 )]
 position = Vector2( 1419.64, 1112.71 )
+motion/sync_to_physics = false
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 17 )
+volume_db = 0.0
+pitch_scale = 1.2
+autoplay = true
+stream_paused = false
+mix_target = 0
+bus = "Master"
 
 [connection signal="button_down" from="CanvasLayer/CityTradeScreen/Button" to="." method="leave_city"]
-
 [connection signal="button_down" from="CanvasLayer/CityTradeScreen/FoodControl/BuyFoodButton" to="CanvasLayer/CityTradeScreen" method="buy_food"]
-
 [connection signal="button_down" from="CanvasLayer/CityTradeScreen/FoodControl/SellFoodButton" to="CanvasLayer/CityTradeScreen" method="sell_food"]
-
 [connection signal="button_down" from="CanvasLayer/CityTradeScreen/WoodControl/BuyWoodButton" to="CanvasLayer/CityTradeScreen" method="buy_wood"]
-
 [connection signal="button_down" from="CanvasLayer/CityTradeScreen/WoodControl/SellWoodButton" to="CanvasLayer/CityTradeScreen" method="sell_wood"]
-
 [connection signal="button_down" from="CanvasLayer/CityTradeScreen/MetalControl/BuyMetalButton" to="CanvasLayer/CityTradeScreen" method="buy_metal"]
-
 [connection signal="button_down" from="CanvasLayer/CityTradeScreen/MetalControl/SellMetalButton" to="CanvasLayer/CityTradeScreen" method="sell_metal"]
-
 [connection signal="button_down" from="CanvasLayer/CityTradeScreen/ToolsControl/BuyToolsButton" to="CanvasLayer/CityTradeScreen" method="buy_tools"]
-
 [connection signal="button_down" from="CanvasLayer/CityTradeScreen/ToolsControl/SellToolsButton" to="CanvasLayer/CityTradeScreen" method="sell_tools"]
-
 [connection signal="button_down" from="CanvasLayer/CityTradeScreen/SaltControl/BuySaltButton" to="CanvasLayer/CityTradeScreen" method="buy_salt"]
-
 [connection signal="button_down" from="CanvasLayer/CityTradeScreen/SaltControl/SellSaltButton" to="CanvasLayer/CityTradeScreen" method="sell_salt"]
-
-

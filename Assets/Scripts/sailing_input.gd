@@ -13,7 +13,7 @@ var resources = {}
 
 func _ready():
 	self.s = Ship.new(initial_pos * cell_size)
-	position = self.s.pos
+	position += self.s.pos
 	self.health = 1
 	
 	self.coin = 100
