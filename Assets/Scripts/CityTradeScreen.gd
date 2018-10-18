@@ -63,9 +63,11 @@ func update_text(city):
 		
 func buy_resource(res):
 	get_tree().get_root().get_node("World").buy_resource(res)
+	$SuccessSound.play()
 	
 func sell_resource(res):
 	get_tree().get_root().get_node("World").sell_resource(res)
+	$SuccessSound.play()
 	
 func buy_food():
 	buy_resource("FOOD")

@@ -10,7 +10,7 @@ class Ship:
 	var target
 	var acc_fac = 0.9
 	
-	var _max_speed = 100.0
+	var _max_speed = 30.0
 	var _max_reverse_speed = -30.0
 	
 	func _init(pos):
@@ -20,12 +20,18 @@ class Ship:
 		self.target = null
 
 	func update(delta):
-		self.pos += Vector2(cos(self.orientation), sin(self.orientation)) * self.sailing_speed * delta
+		self.pos += get_attempted_movement() * delta
 	
 	func get_attempted_movement():
 		return Vector2(cos(self.orientation), sin(self.orientation)) * self.sailing_speed
+	
+	func get_attempted_movement2(acc, delta):
+		# s = 0.5at^2 + v0t + s0
+		return Vector2(cos(self.orientation), sin(self.orientation)) * (self.sailing_speed + 0.5 * acc * delta * delta)
 		
 	func handle_acceleration(acceleration, delta):
+		self.sailing_speed = acceleration * delta + self.sailing_speed
+		
 		if acceleration >= 0:
 			 self.sailing_speed += ((acceleration * _max_speed) - self.sailing_speed) * acc_fac * delta
 		if acceleration < 0:
