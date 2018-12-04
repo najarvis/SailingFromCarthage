@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=2]
+[gd_scene load_steps=30 format=2]
 
 [ext_resource path="res://Assets/Scripts/World.gd" type="Script" id=1]
 [ext_resource path="res://Assets/Tiles/MarchingTileset.res" type="TileSet" id=2]
@@ -7,18 +7,19 @@
 [ext_resource path="res://Assets/Scripts/sailing_input.gd" type="Script" id=5]
 [ext_resource path="res://Assets/Shaders/color_key.shader" type="Shader" id=6]
 [ext_resource path="res://Assets/Ships/ShipTest1.png" type="Texture" id=7]
-[ext_resource path="res://Assets/Sfx/WaveNoise.wav" type="AudioStream" id=8]
-[ext_resource path="res://Assets/Scripts/CityTradeScreen.gd" type="Script" id=9]
-[ext_resource path="res://Assets/UI/Close.png" type="Texture" id=10]
-[ext_resource path="res://Assets/UI/Coin.png" type="Texture" id=11]
-[ext_resource path="res://Assets/UI/Food.png" type="Texture" id=12]
-[ext_resource path="res://Assets/UI/Wood.png" type="Texture" id=13]
-[ext_resource path="res://Assets/UI/Metal.png" type="Texture" id=14]
-[ext_resource path="res://Assets/UI/TOOLS.png" type="Texture" id=15]
-[ext_resource path="res://Assets/UI/Salt.png" type="Texture" id=16]
-[ext_resource path="res://Assets/Sfx/Success.wav" type="AudioStream" id=17]
-[ext_resource path="res://Assets/Entities/BaseMonster.tscn" type="PackedScene" id=18]
-[ext_resource path="res://Assets/Music/SailingTheme.ogg" type="AudioStream" id=19]
+[ext_resource path="res://Scenes/GameCamera.gd" type="Script" id=8]
+[ext_resource path="res://Assets/Sfx/WaveNoise.wav" type="AudioStream" id=9]
+[ext_resource path="res://Assets/Scripts/CityTradeScreen.gd" type="Script" id=10]
+[ext_resource path="res://Assets/UI/Close.png" type="Texture" id=11]
+[ext_resource path="res://Assets/UI/Coin.png" type="Texture" id=12]
+[ext_resource path="res://Assets/UI/Food.png" type="Texture" id=13]
+[ext_resource path="res://Assets/UI/Wood.png" type="Texture" id=14]
+[ext_resource path="res://Assets/UI/Metal.png" type="Texture" id=15]
+[ext_resource path="res://Assets/UI/TOOLS.png" type="Texture" id=16]
+[ext_resource path="res://Assets/UI/Salt.png" type="Texture" id=17]
+[ext_resource path="res://Assets/Sfx/Success.wav" type="AudioStream" id=18]
+[ext_resource path="res://Assets/Entities/BaseMonster.tscn" type="PackedScene" id=19]
+[ext_resource path="res://Assets/Music/SailingTheme.ogg" type="AudioStream" id=20]
 
 [sub_resource type="CircleShape2D" id=1]
 
@@ -178,10 +179,10 @@ anchor_mode = 1
 rotating = false
 current = true
 zoom = Vector2( 1, 1 )
-limit_left = -10000000
-limit_top = -10000000
-limit_right = 10000000
-limit_bottom = 10000000
+limit_left = -50
+limit_top = 50
+limit_right = 50
+limit_bottom = -50
 limit_smoothed = false
 drag_margin_h_enabled = true
 drag_margin_v_enabled = true
@@ -196,7 +197,8 @@ drag_margin_bottom = 0.0
 editor_draw_screen = true
 editor_draw_limits = false
 editor_draw_drag_margin = false
-_sections_unfolded = [ "Drag Margin", "Smoothing", "Transform" ]
+script = ExtResource( 8 )
+_sections_unfolded = [ "Drag Margin", "Limit", "Transform" ]
 
 [node name="Particles2D" type="Particles2D" parent="Player/Player"]
 show_behind_parent = true
@@ -236,7 +238,7 @@ _sections_unfolded = [ "Transform" ]
 shape = SubResource( 7 )
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="Player"]
-stream = ExtResource( 8 )
+stream = ExtResource( 9 )
 volume_db = -11.143
 pitch_scale = 0.62
 autoplay = false
@@ -269,7 +271,7 @@ mouse_filter = 0
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
-script = ExtResource( 9 )
+script = ExtResource( 10 )
 _sections_unfolded = [ "Material" ]
 
 [node name="Button" type="Button" parent="CanvasLayer/CityTradeScreen"]
@@ -293,7 +295,7 @@ enabled_focus_mode = 2
 shortcut = SubResource( 9 )
 group = null
 text = "Leave City"
-icon = ExtResource( 10 )
+icon = ExtResource( 11 )
 flat = false
 align = 1
 _sections_unfolded = [ "Margin" ]
@@ -329,7 +331,7 @@ _sections_unfolded = [ "BBCode", "Rect" ]
 
 [node name="PlayerCoinIcon" type="Sprite" parent="CanvasLayer/CityTradeScreen"]
 position = Vector2( 75.7358, 38.8128 )
-texture = ExtResource( 11 )
+texture = ExtResource( 12 )
 
 [node name="FoodControl" type="Control" parent="CanvasLayer/CityTradeScreen"]
 editor/display_folded = true
@@ -416,7 +418,7 @@ toggle_mode = false
 enabled_focus_mode = 2
 shortcut = null
 group = null
-texture_normal = ExtResource( 12 )
+texture_normal = ExtResource( 13 )
 expand = true
 _sections_unfolded = [ "Hint", "Rect", "Textures" ]
 
@@ -478,7 +480,7 @@ _sections_unfolded = [ "BBCode", "Rect" ]
 
 [node name="FoodCoinIcon" type="Sprite" parent="CanvasLayer/CityTradeScreen/FoodControl"]
 position = Vector2( 92.1674, 177.248 )
-texture = ExtResource( 11 )
+texture = ExtResource( 12 )
 
 [node name="WoodControl" type="Control" parent="CanvasLayer/CityTradeScreen"]
 editor/display_folded = true
@@ -567,7 +569,7 @@ toggle_mode = false
 enabled_focus_mode = 2
 shortcut = null
 group = null
-texture_normal = ExtResource( 13 )
+texture_normal = ExtResource( 14 )
 expand = true
 _sections_unfolded = [ "Hint", "Rect", "Textures" ]
 
@@ -629,7 +631,7 @@ _sections_unfolded = [ "BBCode", "Rect" ]
 
 [node name="WoodCoinIcon" type="Sprite" parent="CanvasLayer/CityTradeScreen/WoodControl"]
 position = Vector2( 92.1674, 177.248 )
-texture = ExtResource( 11 )
+texture = ExtResource( 12 )
 
 [node name="MetalControl" type="Control" parent="CanvasLayer/CityTradeScreen"]
 editor/display_folded = true
@@ -718,7 +720,7 @@ toggle_mode = false
 enabled_focus_mode = 2
 shortcut = null
 group = null
-texture_normal = ExtResource( 14 )
+texture_normal = ExtResource( 15 )
 expand = true
 _sections_unfolded = [ "Hint", "Rect", "Textures" ]
 
@@ -780,7 +782,7 @@ _sections_unfolded = [ "BBCode", "Rect" ]
 
 [node name="MetalCoinIcon" type="Sprite" parent="CanvasLayer/CityTradeScreen/MetalControl"]
 position = Vector2( 92.1674, 177.248 )
-texture = ExtResource( 11 )
+texture = ExtResource( 12 )
 
 [node name="ToolsControl" type="Control" parent="CanvasLayer/CityTradeScreen"]
 editor/display_folded = true
@@ -869,7 +871,7 @@ toggle_mode = false
 enabled_focus_mode = 2
 shortcut = null
 group = null
-texture_normal = ExtResource( 15 )
+texture_normal = ExtResource( 16 )
 expand = true
 _sections_unfolded = [ "Hint", "Rect", "Textures" ]
 
@@ -931,7 +933,7 @@ _sections_unfolded = [ "BBCode", "Rect" ]
 
 [node name="ToolsCoinIcon" type="Sprite" parent="CanvasLayer/CityTradeScreen/ToolsControl"]
 position = Vector2( 92.1674, 177.248 )
-texture = ExtResource( 11 )
+texture = ExtResource( 12 )
 
 [node name="SaltControl" type="Control" parent="CanvasLayer/CityTradeScreen"]
 editor/display_folded = true
@@ -1020,7 +1022,7 @@ toggle_mode = false
 enabled_focus_mode = 2
 shortcut = null
 group = null
-texture_normal = ExtResource( 16 )
+texture_normal = ExtResource( 17 )
 expand = true
 _sections_unfolded = [ "Hint", "Rect", "Textures" ]
 
@@ -1082,10 +1084,10 @@ _sections_unfolded = [ "BBCode", "Rect" ]
 
 [node name="SaltCoinIcon" type="Sprite" parent="CanvasLayer/CityTradeScreen/SaltControl"]
 position = Vector2( 92.1674, 177.248 )
-texture = ExtResource( 11 )
+texture = ExtResource( 12 )
 
 [node name="SuccessSound" type="AudioStreamPlayer" parent="CanvasLayer/CityTradeScreen"]
-stream = ExtResource( 17 )
+stream = ExtResource( 18 )
 volume_db = 0.0
 pitch_scale = 1.2
 autoplay = false
@@ -1093,21 +1095,21 @@ stream_paused = false
 mix_target = 0
 bus = "Master"
 
-[node name="Monster" parent="." instance=ExtResource( 18 )]
+[node name="Monster" parent="." instance=ExtResource( 19 )]
 position = Vector2( 330.461, 660.063 )
 motion/sync_to_physics = false
 
-[node name="Monster2" parent="." instance=ExtResource( 18 )]
+[node name="Monster2" parent="." instance=ExtResource( 19 )]
 position = Vector2( 999.52, 790.391 )
 motion/sync_to_physics = false
 
-[node name="Monster3" parent="." instance=ExtResource( 18 )]
+[node name="Monster3" parent="." instance=ExtResource( 19 )]
 position = Vector2( 1419.64, 1112.71 )
 motion/sync_to_physics = false
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
-stream = ExtResource( 19 )
-volume_db = 0.0
+stream = ExtResource( 20 )
+volume_db = 2.55
 pitch_scale = 1.0
 autoplay = true
 stream_paused = false

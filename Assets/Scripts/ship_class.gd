@@ -9,8 +9,9 @@ class Ship:
 	var sailing_speed
 	var target
 	var acc_fac = 0.9
+	var turn_rate
 	
-	var _max_speed = 30.0
+	var _max_speed = 60.0
 	var _max_reverse_speed = -30.0
 	
 	func _init(pos):
@@ -56,6 +57,7 @@ class Ship:
 		self.set_orientation(self.orientation + orientation_change_delta * fac)
 
 	func turn(orientation_change, delta):
+		# Use this to turn a certain number of radians per second.
 		var fac = self.sailing_speed / _max_speed
 		fac = 1.0
 		self.set_orientation(self.orientation + (orientation_change * delta * fac))
