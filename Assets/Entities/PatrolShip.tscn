@@ -1,0 +1,43 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://Assets/Entities/PatrolShip.gd" type="Script" id=1]
+[ext_resource path="res://Assets/Shaders/color_key.shader" type="Shader" id=2]
+[ext_resource path="res://Assets/Ships/ShipTest1.png" type="Texture" id=3]
+
+
+
+
+[sub_resource type="ShaderMaterial" id=1]
+
+render_priority = 0
+shader = ExtResource( 2 )
+
+[sub_resource type="CircleShape2D" id=2]
+
+custom_solver_bias = 0.0
+radius = 4.00729
+
+[node name="PatrolShip" type="Node2D"]
+pause_mode = 1
+script = ExtResource( 1 )
+_sections_unfolded = [ "Pause" ]
+
+[node name="ShipSprite" type="Sprite" parent="."]
+modulate = Color( 1, 0.584314, 0, 1 )
+material = SubResource( 1 )
+texture = ExtResource( 3 )
+_sections_unfolded = [ "Visibility", "material" ]
+
+[node name="Area2D" type="Area2D" parent="."]
+input_pickable = true
+gravity_vec = Vector2( 0, 1 )
+gravity = 98.0
+linear_damp = 0.1
+angular_damp = 1.0
+audio_bus_override = false
+audio_bus_name = "Master"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource( 2 )
+_sections_unfolded = [ "Material", "Visibility" ]
+

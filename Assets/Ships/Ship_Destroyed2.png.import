@@ -2,12 +2,12 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/ShipTest1.png-596757724f96e0534938faffd1cfc3b7.stex"
+path="res://.import/Ship_Destroyed2.png-18860966d2fc3df158851c1e6fedfc19.stex"
 
 [deps]
 
-source_file="res://Assets/Ships/ShipTest1.png"
-dest_files=[ "res://.import/ShipTest1.png-596757724f96e0534938faffd1cfc3b7.stex" ]
+source_file="res://Assets/Ships/Ship_Destroyed2.png"
+dest_files=[ "res://.import/Ship_Destroyed2.png-18860966d2fc3df158851c1e6fedfc19.stex" ]
 
 [params]
 

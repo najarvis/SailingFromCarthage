@@ -2,12 +2,12 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/ShipTest1.png-596757724f96e0534938faffd1cfc3b7.stex"
+path="res://.import/Ship_Invincibility1.png-0fe461d9151cc151e891d37873785a95.stex"
 
 [deps]
 
-source_file="res://Assets/Ships/ShipTest1.png"
-dest_files=[ "res://.import/ShipTest1.png-596757724f96e0534938faffd1cfc3b7.stex" ]
+source_file="res://Assets/Ships/Ship_Invincibility1.png"
+dest_files=[ "res://.import/Ship_Invincibility1.png-0fe461d9151cc151e891d37873785a95.stex" ]
 
 [params]
 

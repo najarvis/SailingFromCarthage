@@ -2,12 +2,12 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/ShipTest1.png-596757724f96e0534938faffd1cfc3b7.stex"
+path="res://.import/BuyButton.png-95ecbc3ff208855bc2109a76fbb2bf80.stex"
 
 [deps]
 
-source_file="res://Assets/Ships/ShipTest1.png"
-dest_files=[ "res://.import/ShipTest1.png-596757724f96e0534938faffd1cfc3b7.stex" ]
+source_file="res://Assets/UI/BuyButton.png"
+dest_files=[ "res://.import/BuyButton.png-95ecbc3ff208855bc2109a76fbb2bf80.stex" ]
 
 [params]
 

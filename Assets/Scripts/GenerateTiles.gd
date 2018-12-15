@@ -4,6 +4,7 @@ export var map_w = 32
 
 var images = {}
 var cities = []
+var neighbors = {}
 
 # keys are a tuple the 'trueness' of each corner in 
 # clockwise order (with black being true because I'm
@@ -72,10 +73,105 @@ func auto_map():
 			
 	map_img.unlock()
 	
+func generate_neighbors():
+	var used_cells = get_used_cells()
+	for cell in used_cells:
+		#if not get_cellv(cell) in [1, 16]:
+		#	continue
+
+		neighbors[cell] = []
+		for neighbor_offset in [Vector2(-1, 0), Vector2(0, -1), Vector2(1, 0), Vector2(0, 1),
+		                        Vector2(-1, -1), Vector2(1, -1), Vector2(1, 1), Vector2(-1, 1)]:
+			var neighbor = cell + neighbor_offset
+			if get_cellv(neighbor) in [1, 16]:
+				neighbors[cell].append(neighbor)
+				
+		if len(neighbors[cell]) == 0:
+			neighbors.erase(cell)
+
 func _ready():
 	# auto_map()
+	generate_neighbors()
 	pass
 	
 func get_player_tile(pos):
 	var tile_pos = world_to_map(pos)
-	return get_cell(tile_pos.x, tile_pos.y)
+	return get_cellv(tile_pos)
+
+func heuristic(from, to):
+	# Manhattan distance
+	return abs(from.x - to.x) + abs(from.x - to.x)
+
+func get_key_from_min_value(dict, open_set):
+	# Pretty close to infinity.
+	var min_val = 3.402823e+38
+	var selected = null
+	for key in dict:
+		if dict[key] < min_val and open_set.has(key):
+			min_val = dict[key]
+			selected = key
+			
+	return selected
+
+func dist(a, b):
+	if heuristic(a, b) == 2:
+		return 1.41421356237
+	return 1
+
+func do_astar(start, end):
+	# Returns a list of open-water tile coordinates in a path from start to end.
+	#if get_cellv(start) == -1 or get_cellv(end) == -1:
+	if get_cellv(end) == -1:
+		print("Cells don't exist!")
+		return [] # no path to a non-existant node.
+		
+	var closed_set = []
+	var open_set = [start]
+	var cameFrom = {}
+	
+	var gScore = {}
+	gScore[start] = 0
+	
+	var fScore = {}
+	fScore[start] = heuristic(start, end)
+	
+	var current = null
+	
+	while len(open_set) > 0:
+		current = get_key_from_min_value(fScore, open_set)
+		if current == end:
+			var path = [current]
+			while cameFrom.has(current):
+				current = cameFrom[current]
+				path.push_front(current)
+			return path
+			
+		open_set.remove(open_set.find(current))
+		closed_set.append(current)
+	
+		if not neighbors.has(current):
+			print("Not in neighbors!")
+			return []
+		for neighbor in neighbors[current]:
+
+			if closed_set.find(neighbor) != -1:
+				continue
+
+			if not gScore.has(neighbor):
+				gScore[neighbor] = 3.402823e+38
+
+			var tentative_gScore = gScore[current] + dist(current, neighbor)
+			if open_set.find(neighbor) == -1:
+				open_set.append(neighbor)
+			elif tentative_gScore >= gScore[neighbor]:
+				continue
+				
+			cameFrom[neighbor] = current
+			gScore[neighbor] = tentative_gScore
+			fScore[neighbor] = gScore[neighbor] + heuristic(neighbor, end)
+	
+	print("No path found!")
+	return []
+
+
+

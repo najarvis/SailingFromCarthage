@@ -1,41 +1,71 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://Assets/Entities/BaseMonster.gd" type="Script" id=1]
 [ext_resource path="res://Assets/Monsters/BaseMonster.png" type="Texture" id=2]
+[ext_resource path="res://Assets/Monsters/MonsterFrame3.png" type="Texture" id=3]
+[ext_resource path="res://Assets/Monsters/MonsterFrame2.png" type="Texture" id=4]
+[ext_resource path="res://Assets/Monsters/MonsterFrame2_1.png" type="Texture" id=5]
 
-[sub_resource type="CapsuleShape2D" id=1]
+
+
+[sub_resource type="SpriteFrames" id=1]
+
+animations = [ {
+"frames": [ ExtResource( 2 ), ExtResource( 3 ) ],
+"loop": true,
+"name": "Idle",
+"speed": 3.0
+}, {
+"frames": [ ExtResource( 4 ), ExtResource( 5 ), ExtResource( 4 ), ExtResource( 5 ) ],
+"loop": true,
+"name": "Anger",
+"speed": 10.0
+}, {
+"frames": [ ExtResource( 4 ), ExtResource( 3 ), ExtResource( 2 ), ExtResource( 3 ), ExtResource( 5 ), ExtResource( 3 ), ExtResource( 2 ), ExtResource( 3 ) ],
+"loop": true,
+"name": "Happy",
+"speed": 4.0
+} ]
+
+[sub_resource type="CapsuleShape2D" id=2]
 
 custom_solver_bias = 0.0
 radius = 4.73845
 height = 2.16083
 
-[sub_resource type="CapsuleShape2D" id=2]
+[sub_resource type="CapsuleShape2D" id=3]
 
 custom_solver_bias = 0.0
 radius = 12.7412
 height = 2.16083
 
 [node name="Monster" type="KinematicBody2D"]
-
+pause_mode = 1
 scale = Vector2( 2, 2 )
 input_pickable = false
 collision_layer = 1
 collision_mask = 1
 collision/safe_margin = 0.08
+motion/sync_to_physics = false
 script = ExtResource( 1 )
 _sections_unfolded = [ "Transform" ]
 
-[node name="Sprite" type="Sprite" parent="." index="0"]
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+frames = SubResource( 1 )
+animation = "Happy"
+frame = 2
+playing = true
+_sections_unfolded = [ "Visibility", "frames" ]
 
+[node name="Sprite" type="Sprite" parent="."]
+visible = false
 texture = ExtResource( 2 )
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="." index="1"]
-
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2( -0.283405, -3.02298 )
-shape = SubResource( 1 )
+shape = SubResource( 2 )
 
-[node name="Area2D" type="Area2D" parent="." index="2"]
-
+[node name="Area2D" type="Area2D" parent="."]
 input_pickable = true
 gravity_vec = Vector2( 0, 1 )
 gravity = 98.0
@@ -44,11 +74,8 @@ angular_damp = 1.0
 audio_bus_override = false
 audio_bus_name = "Master"
 
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="Area2D" index="0"]
-
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Area2D"]
 position = Vector2( -0.515373, -2.67503 )
-shape = SubResource( 2 )
+shape = SubResource( 3 )
 
 [connection signal="area_entered" from="Area2D" to="." method="on_overlap"]
-
-

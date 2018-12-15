@@ -16,8 +16,9 @@ _global_script_class_icons={
 [application]
 
 config/name="SailingFromCarthage"
-run/main_scene="res://Scenes/Sailing.tscn"
-config/icon="res://icon.png"
+run/main_scene="res://Scenes/MainMenu.tscn"
+boot_splash/image="res://Concept/Icon1.PNG"
+config/icon="res://Concept/Icon1.PNG"
 
 [importer_defaults]
 
